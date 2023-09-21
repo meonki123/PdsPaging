@@ -54,6 +54,7 @@ public class PdsController {
 	
 		//--------------------------------------
 		// 페이징 정보 준비
+		// 현재 페이지
 		int           nowpage   =  Integer.parseInt( (String) map.get("nowpage") ); 
 		int           pagecount =  2;    // 한페이지 당 출력할 줄(row)수  - 2
 
@@ -63,7 +64,7 @@ public class PdsController {
 
 		map.put("nowpage",   nowpage );
 		map.put("pagecount", pagecount );
-		map.put("startnum",  startnum );
+		map.put("startnum",  startnum ); // 조회할 자료의 시작번호
 		map.put("endnum",    endnum );		
 		//----------------------------------------
 				

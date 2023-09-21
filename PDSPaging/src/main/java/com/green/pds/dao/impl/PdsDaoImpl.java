@@ -103,7 +103,7 @@ public class PdsDaoImpl implements PdsDao {
 		int      totalcount              =  sqlSession.selectOne("Pds.GetTotalCount", map);
 		map.put("totalcount",  totalcount);
 		
-		// 메뉴 목록 조회 (paging)
+		// 메뉴 목록 조회 (paging) : startnum ~ endnum
 		List<PdsPagingVo> pdsPagingList  =  sqlSession.selectList("Pds.PdsPagingList", map);  
 		
 		return   pdsPagingList;

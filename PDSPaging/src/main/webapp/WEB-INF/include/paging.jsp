@@ -16,7 +16,8 @@
      <c:if test="${ startnum gt 1 }">
        <a href="/Pds/List?menu_id=${ menu_id }&nowpage=1">⏮</a>
        <a href="/Pds/List?menu_id=${ menu_id }&nowpage=${ startnum - 1 }">
-       ◀     </a>
+       ⏪
+       </a>
      </c:if>
      
      <!-- 1 2 3 4 5 6 [7] 8 9 10  -->
@@ -29,7 +30,7 @@
      <!-- 다음 / 마지막 -->
      <c:if test="${ totalpagecount ne endnum }">
        <a href="/Pds/List?menu_id=${ menu_id }&nowpage=${ endnum + 1 }">
-       ▶
+       ⏩
        </a>
        <a href="/Pds/List?menu_id=${ menu_id }&nowpage=${ totalpagecount }">⏭</a>
      </c:if>    

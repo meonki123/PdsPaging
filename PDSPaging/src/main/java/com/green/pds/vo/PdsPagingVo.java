@@ -41,15 +41,13 @@ public class PdsPagingVo {
 	private  int      totalpagecount;   // 화면에 보여줄 페이지 수
 	private  int      pagestartnum;     // 페이지 시작 번호
 	private  int      pageendnum;       // 페이지 끝   번호
-	private  int      pagegrpnum;       // 페이지 그룹 번호
 	
 	// Constructor
-	public PdsPagingVo() {
-	}
+	public PdsPagingVo() {}
 	public PdsPagingVo(int idx, String title, String cont, String regdate, String writer, int readcount, int filescount,
 			int bnum, int lvl, int step, int nref, int delnum, int parent, String menu_id, String menu_name,
 			int menu_seq, int file_num, String filename, String fileext, String sfilename, int nowpage, int pagecount,
-			int totalcount, int totalpagecount, int pagestartnum, int pageendnum, int pagegrpnum) {
+			int totalcount, int totalpagecount, int pagestartnum, int pageendnum) {
 		this.idx = idx;
 		this.title = title;
 		this.cont = cont;
@@ -76,7 +74,6 @@ public class PdsPagingVo {
 		this.totalpagecount = totalpagecount;
 		this.pagestartnum = pagestartnum;
 		this.pageendnum = pageendnum;
-		this.pagegrpnum = pagegrpnum;
 	}
 	
 	// Getter / Setter
@@ -236,14 +233,8 @@ public class PdsPagingVo {
 	public void setPageendnum(int pageendnum) {
 		this.pageendnum = pageendnum;
 	}
-	public int getPagegrpnum() {
-		return pagegrpnum;
-	}
-	public void setPagegrpnum(int pagegrpnum) {
-		this.pagegrpnum = pagegrpnum;
-	}
 
-	// toString
+	// toString 
 	@Override
 	public String toString() {
 		return "PdsPagingVo [idx=" + idx + ", title=" + title + ", cont=" + cont + ", regdate=" + regdate + ", writer="
@@ -252,8 +243,7 @@ public class PdsPagingVo {
 				+ menu_id + ", menu_name=" + menu_name + ", menu_seq=" + menu_seq + ", file_num=" + file_num
 				+ ", filename=" + filename + ", fileext=" + fileext + ", sfilename=" + sfilename + ", nowpage="
 				+ nowpage + ", pagecount=" + pagecount + ", totalcount=" + totalcount + ", totalpagecount="
-				+ totalpagecount + ", pagestartnum=" + pagestartnum + ", pageendnum=" + pageendnum + ", pagegrpnum="
-				+ pagegrpnum + "]";
+				+ totalpagecount + ", pagestartnum=" + pagestartnum + ", pageendnum=" + pageendnum + "]";
 	}
 
 	

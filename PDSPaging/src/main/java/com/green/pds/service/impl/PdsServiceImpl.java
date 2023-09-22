@@ -131,7 +131,7 @@ public class PdsServiceImpl implements PdsService {
 		BoardPaging   bp    =  new BoardPaging(
 			menu_id, nowpage, pagecount, totalcount, pagetotalcount);
 
-		PdsPagingVo   vo  = bp.getPdsPagingInfo();
+		PdsPagingVo   vo    =  bp.getPdsPagingInfo();
 		
 		map.put("pdsPagingVo", vo );
 		

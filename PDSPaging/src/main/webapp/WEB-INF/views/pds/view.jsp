@@ -40,7 +40,7 @@
    <!--  메뉴 목록 -->
    <%@include file="/WEB-INF/include/pdsmenus.jsp" %>
      
-  <h2>${ menuname } 자료실 내용보기</h2>
+  <h2>${ map.menuname } 자료실 내용보기</h2>
     
   <table id="table">   
    <tr>

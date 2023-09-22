@@ -83,7 +83,7 @@
          	    </a>
          	  </c:when>
          	  <c:otherwise>
-         	     [답글] <s>삭제된 글입니다</s>
+         	      [답글] <s>삭제된 글입니다</s>
          	  </c:otherwise>
          	</c:choose>
          	

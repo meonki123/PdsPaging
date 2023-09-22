@@ -68,11 +68,23 @@ public class PdsDaoImpl implements PdsDao {
 	@Override
 	public void setDelete(HashMap<String, Object> map) {
 		
-		List<FilesVo>  fileList = getFileList(map);
-		map.put("fileList", fileList  );		
+		// 자식이 있는지 확인한다 
+		// 입력 : idx 비교 idx == parent
+		// 0: 자식없음 - 삭제대상 
+		// 1: 자식있음 - delnum <- 1 
+		int  isChild = sqlSession.selectOne("Pds.isChild", map);
+		if (isChild == 0) {
+			// idx 에 해당하는 삭제할 파일목록 조회
+			List<FilesVo>  fileList = getFileList(map);
+			map.put("fileList", fileList  );		
+			
+			sqlSession.delete("Pds.FileDelete",  map);  // Files table 정보삭제
+			sqlSession.delete("Pds.BoardDelete", map); // Board table 정보삭제
+		} else {
+			sqlSession.update("Pds.BoardDelete2", map); // 1: 자식있음 - delnum <- 1
+		}
+		
 
-		sqlSession.delete("Pds.FileDelete", map);
-		sqlSession.delete("Pds.BoardDelete", map);
 		
 	}
 

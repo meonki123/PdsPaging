@@ -54,9 +54,10 @@ public class PdsController {
 	
 		//--------------------------------------
 		// 페이징 정보 준비
-		// 현재 페이지
-		int           nowpage   =  Integer.parseInt( (String) map.get("nowpage") ); 
-		int           pagecount =  2;    // 한페이지 당 출력할 줄(row)수  - 2
+		// 현재 페이지 	번호
+		int           nowpage   =  Integer.parseInt( (String) map.get("nowpage") );
+		// 한페이지에 보여줄 자료수(ROWS)
+		int           pagecount =  5;    // 한페이지 당 출력할 줄(row)수 - 2
 
 		// sql 사용할 변수 : 조회할 레코드 번호
 		int           startnum  =  ( nowpage - 1 ) * pagecount + 1;
@@ -65,19 +66,19 @@ public class PdsController {
 		map.put("nowpage",   nowpage );
 		map.put("pagecount", pagecount );
 		map.put("startnum",  startnum ); // 조회할 자료의 시작번호
-		map.put("endnum",    endnum );		
+		map.put("endnum",    endnum );	 // 조회할 자료의 끝번호	
 		//----------------------------------------
-				
-		
+					
 		// 자료실 글 목록
 		String              menu_id        =  (String) map.get("menu_id");
+		// 조회할 자료 검색
 		List<PdsPagingVo>   pdsPagingList  =  pdsService.getPdsPagingList( map );
 		
 		// 조회후 pdsService.getPagingList(map)를 실행한 후 변경된 map 정보를 이용 
 		// paging.jsp 가 사용할 변수담고 있다
 		PdsPagingVo         pdsPagingVo    =  (PdsPagingVo) map.get("pdsPagingVo");
 		//System.out.println("125:" +  pdsPagingVo);
-		
+	
 		
 		// 메뉴이름을 가져온다		
 		String        menuname  = menuService.getMenuName(menu_id);
@@ -94,15 +95,15 @@ public class PdsController {
 	}
 	
 	// 자료실 새글 쓰기
-	// /Pds/WriteForm?menu_id=MENU01&bnum=0&lvl=0&step=0&nref=0&nowpage=           // 새글
-	// /Pds/WriteForm?menu_id=MENU03&idx=19&bnum=19&lvl=0&step=0&nref=19&nowpage=  // 답글
+	// /Pds/WriteForm?menu_id=MENU01&bnum=0&lvl=0&step=0&nref=0&nowpage=2           // 새글
+	// /Pds/WriteForm?menu_id=MENU03&idx=19&bnum=19&lvl=0&step=0&nref=19&nowpage=2  // 답글
 	@RequestMapping("/WriteForm")
 	public  ModelAndView   writeForm(  
 		@RequestParam  HashMap<String, Object> map	) {
 
 		// System.out.println( "contr writeForm map:" + map );
-		// contr writeForm map:{menu_id=MENU01, bnum=0, lvl=0, step=0, nref=0} : 새글
-		// contr writeForm map:{menu_id=MENU01, bnum=7, lvl=1, step=1, nref=7, idx=7} : 답글
+		// map:{menu_id=MENU01, bnum=0, lvl=0, step=0, nref=0, nowpage=2} : 새글
+		// map:{menu_id=MENU01, bnum=7, lvl=1, step=1, nref=7, idx=7, nowpage=2} : 답글
 		
 		// 메뉴 목록
 		List<MenuVo>  menuList  =  menuService.getMenuList();
@@ -111,8 +112,8 @@ public class PdsController {
 		String        menuname  =  menuService.getMenuName(menu_id);
 		map.put("menuname", menuname);
 		
-		// idx 없으면 null
-		//     있으면 숫자 27 
+		// idx 없으면 null      : 새글
+		//     있으면 숫자 27   : 답글
 		int      idx    = 0;
 		PdsVo    pdsVo  = null;
 		if( map.get("idx") != null  ) {
@@ -177,7 +178,7 @@ public class PdsController {
 	}
 	
 	// 내용보기
-	// /Pds/View?menu_id=MENU03&idx=15
+	// /Pds/View?menu_id=MENU03&idx=15&nowpage=1
 	@RequestMapping("/View")
 	public   ModelAndView   view( 
 		@RequestParam HashMap< String, Object >  map	
@@ -185,11 +186,9 @@ public class PdsController {
 		
 		// 메뉴 리스트
 		List<MenuVo>   menulist  =  menuService.getMenuList();
-		
-		// 조회수 증가 (readcount++)  -> dao 로 이동		
-		
+			
 		// 보여줄 게시글 내용
-		PdsVo          pdsVo     =  pdsService.getPds(map);           // idx		
+		PdsVo          pdsVo     =  pdsService.getPds(map);      // idx		
 		// System.out.println("/VIEW pdsVo:" + pdsVo);
 		// 게시글의 내용중 <textarea> 안의 엔터키는 -> \n
 		// 화면에 출력 <td><div> 줄바꿈 <br>
@@ -201,6 +200,11 @@ public class PdsController {
 		// 파일정보목록 
 		List<FilesVo>  fileList  =  pdsService.getFileList( map );    // idx
 		// System.out.println( fileList  );
+		
+		// 메뉴이름
+		String  menu_id   =  (String) map.get("menu_id");
+		String  menuname  =  menuService.getMenuName(menu_id);
+		map.put("menuname",  menuname);
 		
 		ModelAndView  mv  =  new ModelAndView();
 		mv.setViewName( "pds/view" );     //  pds/view.jsp
@@ -241,6 +245,7 @@ public class PdsController {
 	
 	//--------------------------------------
 	// 수정
+	// /Pds/UpdateForm?menu_id=MENU01&idx=41&nowpage=1
 	@RequestMapping("/UpdateForm")
 	public   ModelAndView   updateForm(
 		@RequestParam	HashMap<String, Object>  map

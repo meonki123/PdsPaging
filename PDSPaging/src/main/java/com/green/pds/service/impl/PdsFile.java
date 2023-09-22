@@ -83,13 +83,15 @@ public class PdsFile {
 		
 		String path = "d:\\upload\\";
 		
-		fileList.forEach( ( f ) -> {
-			String sfile = f.getSfilename();
-			File   file  = new File(path + sfile);
-			if(file.exists())
-				file.delete();
-		});
-		
+		if( fileList != null ) {
+			fileList.forEach( ( f ) -> {
+				String sfile = f.getSfilename();
+				File   file  = new File(path + sfile);
+				if(file.exists())
+					file.delete();
+			});		
+		}
+				
 	}
 
 }
